@@ -1,27 +1,61 @@
 
 var w = 1000;
 var h = 600;
-var linkDistance=300;
+var linkDistance=400;
 
 const boxWidth = 110;
 const boxHeight = 80;
 
-var colors = d3.scale.category10();
+var svg = d3.select("body").append("svg").attr({"width":w,"height":h})
+.call(d3.behavior.zoom().on("zoom", function () {
+  svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+})).append("g");
 
-var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
+
+let nodeData = dataset.nodes.slice(0);
+let edgeData = [];
+
+dataset.edges.forEach( edge => {
+  let target = nodeData.findIndex(function(el) {
+    return el.name == edge.target;
+  });
+  if(target == -1) console.log(edge.target + " not found.");
+
+  let source = nodeData.findIndex(function(el) {
+    return el.name == edge.source;
+  });
+  if(source == -1) console.log(edge.source + " not found.");
+ 
+  if(edge.label) {
+    let i = nodeData.length;
+    nodeData[i] = {text: edge.label, isLabel: true};
+  
+    if(source != -1) {
+      edgeData[edgeData.length] = {source:source, target:i};
+    }
+  
+    if(target != -1) {
+      edgeData[edgeData.length] = {source:i, target:target};
+    }
+  } else if (source != -1 && target != -1) {
+    edgeData[edgeData.length] = {source:source, target:target};
+  }
+});
+
+console.log(nodeData, edgeData);
 
 var force = d3.layout.force()
-    .nodes(dataset.nodes)
-    .links(dataset.edges)
+    .nodes(nodeData)
+    .links(edgeData)
     .size([w,h])
     .linkDistance([linkDistance])
-    .charge([-500])
+    .charge([-2000])
     .theta(0.1)
     .gravity(0.05)
     .start();
 
 var edges = svg.selectAll("line")
-  .data(dataset.edges)
+  .data(edgeData)
   .enter()
   .append("line")
   .attr("id",function(d,i) {return 'edge'+i})
@@ -30,18 +64,20 @@ var edges = svg.selectAll("line")
   .style("pointer-events", "none");
 
 var nodes = svg.selectAll("rect")
-  .data(dataset.nodes)
+  .data(nodeData)
   .enter()
   .append("rect")
-  .attr({"width":boxWidth, "height":boxHeight})
+  .attr({"width":boxWidth, "height":(d)=>{return d.isLabel?boxHeight/3:boxHeight}})
   .style("fill",function(d){
-    if(d.startNode) return "FFAAAA";
+    if(d.startNode) return "AAFFAA";
+    if(d.isLabel) return "lightgrey";
+    if(d.isEnd) return "FFAAAA";
     return "grey";
   })
   .call(force.drag)
 
 var nodelabels = svg.selectAll(".nodelabel") 
-    .data(dataset.nodes).enter()
+    .data(nodeData).enter()
     .append("foreignObject")
     .attr({"x":function(d){return d.x - boxWidth/2;},
           "y":function(d){return d.y - boxHeight/2;},
@@ -51,7 +87,7 @@ var nodelabels = svg.selectAll(".nodelabel")
     .on("click", function(d){ speak(d.text) });
 
 var edgepaths = svg.selectAll(".edgepath")
-    .data(dataset.edges)
+    .data(edgeData)
     .enter()
     .append('path')
     .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
@@ -64,7 +100,7 @@ var edgepaths = svg.selectAll(".edgepath")
     .style("pointer-events", "none");
 
 var edgelabels = svg.selectAll(".edgelabel")
-    .data(dataset.edges)
+    .data(edgeData)
     .enter()
     .append('text')
     .style("pointer-events", "none")
@@ -84,7 +120,7 @@ edgelabels.append('textPath')
 svg.append('defs').append('marker')
     .attr({'id':'arrowhead',
             'viewBox':'-0 -5 10 10',
-            'refX':25,
+            'refX':70,
             'refY':0,
             'orient':'auto',
             'markerWidth':10,
@@ -98,16 +134,16 @@ svg.append('defs').append('marker')
 
 force.on("tick", function(){
 
+  nodes.attr({"x":function(d){return d.x-boxWidth/2;},
+              "y":function(d){return d.y-boxHeight/2;} });
+  nodelabels.attr("x", function(d) { return d.x  - boxWidth/2; }) 
+            .attr("y", function(d) { return d.y  - boxHeight/2; });
+
     edges.attr({"x1": function(d){return d.source.x;},
                 "y1": function(d){return d.source.y;},
                 "x2": function(d){return d.target.x;},
                 "y2": function(d){return d.target.y;}
     });
-
-    nodes.attr({"x":function(d){return d.x-boxWidth/2;},
-                "y":function(d){return d.y-boxHeight/2;} });
-    nodelabels.attr("x", function(d) { return d.x  - boxWidth/2; }) 
-              .attr("y", function(d) { return d.y  - boxHeight/2; });
 
     edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
                                         //console.log(d)
