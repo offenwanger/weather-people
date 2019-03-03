@@ -47,7 +47,7 @@ const dataset = {
       isEnd: true},
     /* 10 Canned info repeat */
     { name: "repeat_canned_info",
-      text: "<weather> on <timeframe> [in <location>] will be rainy."},
+      text: "<timeframe> [in <location>] it will be cold and raining."},
     
   ], edges: [
     {source: "initial_prompt", label: "Weather Inquiry", target: "canned_info"},
