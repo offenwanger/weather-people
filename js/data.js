@@ -5,7 +5,7 @@ const dataset = {
            "the weather information you need. What would you like to "+
            "know?", startNode:1},
    
-    { name:"rain_canned_info",
+    { name:"canned_info",
       text: "<timeframe> [in <location>] it will be cold and raining."},
 
     /* 2 Prompt for termination or further interaction */
