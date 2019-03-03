@@ -5,20 +5,20 @@ const dataset = {
            "the weather information you need. What would you like to "+
            "know?", startNode:1},
    
-    { name:"canned_info",
-      text: "<weather> on <timeframe> [in <location>] will be rainy."},
-   
+    { name:"rain_canned_info",
+      text: "<timeframe> [in <location>] it will be cold and raining."},
+
     /* 2 Prompt for termination or further interaction */
     { name: "more_info_or_terminate",
       text: "Is there anything else you would like to know?"},
    
       /* 3 Acknowledge error */
-    {name: "acknowledge_error",
+    { name: "acknowledge_error",
       text: "I seem to be having some trouble helping you."},
     
       /* 4 Alternatives */
-    {name: "alternative",
-    text: "If there’s a feature that I’m not able to provide, "+
+    { name: "alternative",
+      text: "If there’s a feature that I’m not able to provide, "+
           "we would appreciate it if you could file feedback at "+
           "weatherbugs.com",
           isEnd: true},
