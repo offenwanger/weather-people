@@ -4,57 +4,10 @@
 
 <head>
   <title>Socket.IO chat</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <link rel="stylesheet" href="css/typer.css">
 
-    body {
-      font: 13px Helvetica, Arial;
-    }
-
-    form {
-      background: #000;
-      padding: 3px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-
-    form input {
-      border: 0;
-      padding: 10px;
-      width: 90%;
-      margin-right: .5%;
-    }
-
-    form button {
-      width: 9%;
-      background: rgb(130, 224, 255);
-      border: none;
-      padding: 10px;
-    }
-
-    #messages {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    #messages li {
-      padding: 5px 10px;
-    }
-
-    #messages li:nth-child(odd) {
-      background: #eee;
-    }
-
-    #messages {
-      margin-bottom: 40px
-    }
-  </style>
 </head>
 
 <body>
@@ -62,22 +15,44 @@
   <form action="">
     <input id="m" autocomplete="off" /><button>Send</button>
   </form>
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-  <script>
-    $(function () {
-      var socket = io();
-      $('form').submit(function () {
-        socket.emit('utterance', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('utterance', function (msg) {
-        $('#messages').append($('<li>').text(msg));
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-    });
-  </script>
+    
+  <div class="flow-buttons">
+    <button>Hello, this is the WeatherBug, I can help you hunt out the weather information you need. What would you like to know?</button>
+    <button>Hello, how can I help?</button>
+  </div>
+  
+  <div class="flow-buttons" id="weather-inquiry-buttons">
+    <button>'Today' in 'Seattle' it will be cold and raining.</button>
+    <button>'Today' in 'Vancouver' it will be cold and snowy.</button>
+    <button>'Today' in 'Vancouver', the humidity will be 77%</button>
+    <button>Is there anything else you would like to know?</button>
+  </div>
+
+  <div  class="flow-buttons" id="no-response-buttons">
+    <button>Sorry, I didn't hear anything. What would you like to know?</button>
+    <button>Sorry, I didn't hear anything. Wake me up when again when you have another question.</button>
+  </div>
+
+  <div class="flow-buttons" id="mismatch-buttons">
+    <button>I'm sorry, what was that?</button>
+    <button>Sorry, I don't understand what you are asking for. You can ask for things like "What's the weather like today", or "Will it rain on Thursday?"</button>
+    <button>I'm going to sleep now.</button>
+  </div>
+
+  <div class="flow-buttons" id="grunt-mode-buttons">
+    <button>I seem to be having some trouble helping you. </button>
+    <button>Would you like to record a message to tell us what is going wrong? Say 1 for yes, 2 for no.</button>
+    <button>No worries. I'm going to sleep now. Bye!</button>
+    <button>Please record your message after the beep. *BEEP*</button>
+    <button>Thanks for the feedback! Ready to send?</button>
+    <button>Thanks so much. I'm going to sleep now. </button>
+    <button>Aww. Ok. I'm going to sleep now.</button>
+    <button>Sorry?</button>
+    <button>Hmm, I don't know how to help with that. I'm going to sleep now.</button>
+  </div>
+  
+
+  <script src="js/typer.js"></script>
 </body>
 
 </html>

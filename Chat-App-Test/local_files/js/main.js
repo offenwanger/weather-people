@@ -81,7 +81,6 @@ $(function () {
         }
 
         window.speechSynthesis.speak(msg);
-        console.log("??????" + text);
     }
 
     socket.on('utterance', function (msg) {
