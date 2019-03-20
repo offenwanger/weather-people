@@ -3,6 +3,15 @@
 
 <head>
   <title>Socket.IO chat</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.5/css/star-rating.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.5/themes/krajee-fas/theme.css">
+  <link rel="stylesheet" href="css/main.css">
   <style>
     * {
       margin: 0;
@@ -57,12 +66,109 @@
 </head>
 
 <body>
-  <img style="height:500px" src="https://i5.walmartimages.ca/images/Enlarge/309/511/6000197309511.jpg" alt="VUI"
-    class="center">
+  <!-- <img style="height:500px" src="https://i5.walmartimages.ca/images/Enlarge/309/511/6000197309511.jpg" alt="VUI"
+    class="center"> -->
+  <div class="container">
+    <img class="mx-auto d-block" src="images/google_mini.png" alt="google mini" style="max-width:40%">
+
+    <div class="row">
+      <div class="col text-center">
+        <button type="button" id="record-button" class="btn btn-danger btn-circle btn-xl"><i
+            class="fa fa-microphone"></i></button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <button type="button" id="feedback-button" class="btn btn-light">Rate</button>
+      </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Consent</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            Hi there, thanks for participating in this study!<br /><br />
+
+            We intend for your participation to be
+            pleasant and stress-free. Your participation is entirely voluntary and you may refuse to participate or
+            withdraw from the study at any time.<br /><br />
+
+            Please be aware that we are going to be recording audio during the entirety of this study.
+
+            If you have any questions, feel free to ask.<br /><br />
+
+            Please click on Accept to provide your consent.
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal1" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Feedback</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <div id="message" style="text-align: center; color: green;"></div>
+            <div class="form-group">
+              <span id="updatecapacitymodalerrortext" style="color:red"></span>
+            </div>
+            <div class="form-group">
+              <div class="feedback">
+                <input id="input-1-ltr-star-md" name="input-1-ltr-star-md" class="kv-ltr-theme-fas-star rating-loading"
+                  dir="ltr" data-size="md" data-min="0" data-max="5" data-step="1"
+                  data-star-captions='["Not Rated", "Poor", "Fair","Good","Very Good","Excellent"]'>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="updateCapacityBtn" class="btn btn-info ">Save</button>
+            <button type="button" id="capacityModalClose" class="btn btn-default" data-dismiss="modal">Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  </div>
+
+
+
+
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.5/js/star-rating.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.5/themes/krajee-fas/theme.js"></script>
   <script src="js/main.js"></script>
-  <button> Click me! </button>
+  <!-- <button> Click me! </button> -->
   <script>
     // CHeck for browser support
     if ('speechSynthesis' in window) {
