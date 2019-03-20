@@ -15,8 +15,12 @@ app.get('/typer', function (req, res) {
 app.use('/', express.static(__dirname + '/local_files'));
 
 io.on('connection', function (socket) {
-  socket.on('chat message', function (msg) {
-    io.emit('chat message', msg);
+  socket.on('utterance', function (msg) {
+    io.emit('utterance', msg);
+  });
+
+  socket.on('rating', function (msg) {
+    console.log("The user clicked rating: " + msg);
   });
 });
 

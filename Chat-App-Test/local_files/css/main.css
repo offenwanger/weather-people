@@ -1,3 +1,4 @@
+/* Adapted from https://codepen.io/jnbruno/pen/vNpPpW */
 .btn-circle.btn-xl {
     width: 70px;
     height: 70px;
@@ -17,9 +18,13 @@
     line-height: 1.42857;
 }
 
-
+/* Adapted from: https://codepen.io/aeewhite/pen/BjzbOL */
 .notRec{
 	background-color: darkred;
+}
+
+.thinking{
+	background-color: orangered;
 }
 
 .Rec{
