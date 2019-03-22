@@ -12,6 +12,10 @@ app.get('/typer', function (req, res) {
   res.sendFile(__dirname + '/local_files/typer.html');
 });
 
+app.get('/typerbase', function (req, res) {
+  res.sendFile(__dirname + '/local_files/typerbase.html');
+});
+
 app.use('/', express.static(__dirname + '/local_files'));
 
 io.on('connection', function (socket) {
