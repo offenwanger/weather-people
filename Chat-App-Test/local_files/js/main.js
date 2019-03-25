@@ -1,7 +1,7 @@
 $(function () {
     var socket = io();
-
-    let voiceName;
+    var star_rating = -1;
+    let voiceName
 
     $(document).ready(function () {
         $(window).on('load', function () {
@@ -13,6 +13,17 @@ $(function () {
         $("#feedback-button").click(function () {
             $("#myModal1").modal();
         });
+
+        $("#capacityModalClose").click(function () {
+            socket.emit('rating', star_rating);
+        });
+
+        $('#input-1-ltr-star-md').on('rating:change', function (event, value, caption) {
+            star_rating = value;
+            console.log(caption);
+        });
+
+
     });
 
     /* Adapted from: https://codepen.io/aeewhite/pen/BjzbOL */
@@ -37,10 +48,10 @@ $(function () {
         containerClass: 'is-star'
     });
 
-    $('#input-1-ltr-star-md').on('rating:change', function (event, value, caption) {
-        socket.emit('rating', value);
-        console.log(caption);
-    });
+    // $('#input-1-ltr-star-md').on('rating:change', function (event, value, caption) {
+    //     socket.emit('rating', value);
+    //     console.log(caption);
+    // });
 
     // CHeck for browser support
     if ('speechSynthesis' in window) {
@@ -82,6 +93,8 @@ $(function () {
 
         window.speechSynthesis.speak(msg);
     }
+
+
 
     socket.on('utterance', function (msg) {
         speak(msg);
