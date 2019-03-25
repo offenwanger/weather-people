@@ -9,7 +9,6 @@ $(function () {
 
   socket.on('utterance', function (msg) {
     $('#messages').append($('<li>').text(msg));
-    window.scrollTo(0, document.body.scrollHeight);
   });
 
   $(".flow-buttons").find("button").click(function (e) {
