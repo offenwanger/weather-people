@@ -34,6 +34,7 @@ $(function () {
             $('#record-button').addClass("Rec");
             $('#record-button').removeClass("thinking");
 
+            $()
         }
         else {
             $('#record-button').removeClass("Rec");
