@@ -22,7 +22,6 @@ $(function () {
             $('#record-button').removeClass("notRec");
             $('#record-button').addClass("Rec");
             $('#record-button').removeClass("thinking");
-
         }
         else {
             $('#record-button').removeClass("Rec");
@@ -38,9 +37,12 @@ $(function () {
     });
 
     $('#input-1-ltr-star-md').on('rating:change', function (event, value, caption) {
-        socket.emit('rating', value);
-        console.log(caption);
+        socket.emit('interface-message', "User rated the app "+value+"/"+caption);
     });
+
+    /**********************************
+     * Speech Synthesis code:
+     **********************************/
 
     // CHeck for browser support
     if ('speechSynthesis' in window) {

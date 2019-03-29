@@ -11,6 +11,13 @@ $(function () {
     $('#messages').append($('<li>').text(msg));
   });
 
+  socket.on('interface-message', function (msg) {
+    let li = $('<li>');
+    li.text("INTERFACE: "+msg);
+    li.addClass('interface-message');
+    $('#messages').append(li);
+  });
+
   $(".flow-buttons").find("button").click(function (e) {
     var txt = $(e.target).text();
     txt = $('#m').val()+" "+txt;

@@ -23,8 +23,8 @@ io.on('connection', function (socket) {
     io.emit('utterance', msg);
   });
 
-  socket.on('rating', function (msg) {
-    console.log("The user clicked rating: " + msg);
+  socket.on('interface-message', function (msg) {
+    io.emit('interface-message', msg);
   });
 });
 
