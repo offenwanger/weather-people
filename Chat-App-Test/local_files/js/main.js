@@ -6,13 +6,14 @@ $(function () {
 
     $(document).ready(function () {
         $(window).on('load', function () {
-            $("#myModal").modal({
+            $("#concentModal").modal({
                 backdrop: 'static',
             });
         });
 
         $("#feedback-button").click(function () {
-            $("#myModal1").modal();
+            $("#feedbackModal").modal();
+            socket.emit('interface-message', "User opened the feedback window");
         });
 
         $("#capacityModalClose").click(function () {
@@ -21,9 +22,16 @@ $(function () {
 
         $('#input-1-ltr-star-md').on('rating:change', function (event, value, text) {
             star_rating = value;
-            caption = text;
+            caption = $(text)[0].innerHTML;
         });
 
+        $('#acceptConcentButton').on('click', function() {
+            socket.emit('interface-message', "User clicked accept on the concent for modal.");
+        });
+
+        $('#concentFormLink').on('click', function() {
+            socket.emit('interface-message', "User opened the concent form.");
+        });
 
     });
 
@@ -34,11 +42,13 @@ $(function () {
             $('#record-button').removeClass("notRec");
             $('#record-button').addClass("Rec");
             $('#record-button').removeClass("thinking");
+            socket.emit('interface-message', "User clicked the record button - Recording");
         }
         else {
             $('#record-button').removeClass("Rec");
             $('#record-button').addClass("notRec");
             $('#record-button').addClass("thinking");
+            socket.emit('interface-message', "User clicked the record button - Now thinking");
         }
     });
 

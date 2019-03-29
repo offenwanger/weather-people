@@ -12,10 +12,7 @@ $(function () {
   });
 
   socket.on('interface-message', function (msg) {
-    let li = $('<li>');
-    li.text("INTERFACE: "+msg);
-    li.addClass('interface-message');
-    $('#messages').append(li);
+    $('#messages').append($('<li>').text(msg).css("font-weight","Bold"));
   });
 
   $(".flow-buttons").find("button").click(function (e) {
