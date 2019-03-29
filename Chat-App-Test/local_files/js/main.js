@@ -1,6 +1,7 @@
 $(function () {
     var socket = io();
-
+    var star_rating = -1;
+    let caption = "No Selection";
     let voiceName;
 
     $(document).ready(function () {
@@ -13,6 +14,17 @@ $(function () {
         $("#feedback-button").click(function () {
             $("#myModal1").modal();
         });
+
+        $("#capacityModalClose").click(function () {
+            socket.emit('interface-message', "User rated the app "+star_rating+"/"+caption);
+        });
+
+        $('#input-1-ltr-star-md').on('rating:change', function (event, value, text) {
+            star_rating = value;
+            caption = text;
+        });
+
+
     });
 
     /* Adapted from: https://codepen.io/aeewhite/pen/BjzbOL */
@@ -34,10 +46,6 @@ $(function () {
         hoverOnClear: false,
         theme: 'krajee-fas',
         containerClass: 'is-star'
-    });
-
-    $('#input-1-ltr-star-md').on('rating:change', function (event, value, caption) {
-        socket.emit('interface-message', "User rated the app "+value+"/"+caption);
     });
 
     /**********************************
