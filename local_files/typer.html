@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- Modified from https://socket.io/get-started/chat -->
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <link rel="stylesheet" href="css/typer.css">
+
+</head>
+
+<body>
+  <ul id="messages"></ul>
+  <form action="">
+    <input id="m" autocomplete="off" /><button>Send</button>
+  </form>
+    
+  <div class="flow-buttons">
+    <button>Hello, this is the WeatherBug, I can help you hunt out the weather information you need. What would you like to know?</button>
+    <button>Hello, how can I help?</button>
+  </div>
+  
+  <div class="flow-buttons" id="weather-inquiry-buttons">
+    <button>'Today' in 'Seattle' it will be cold and raining. Is there anything else you would like to know?</button>
+    <button>'Today' in 'Vancouver' it will be cold and snowy. Is there anything else you would like to know?</button>
+  </div>
+
+  <div  class="flow-buttons" id="no-response-buttons">
+    <button>Sorry, I didn't hear anything. What would you like to know?</button>
+    <button>Sorry, I didn't hear anything. Wake me up when again when you have another question.</button>
+  </div>
+
+  <div class="flow-buttons" id="mismatch-buttons">
+    <button>I'm sorry, what was that?</button>
+    <button>Sorry, I don't understand what you are asking for. You can ask for things like "What's the weather like today", or "Will it rain on Thursday?"</button>
+    <button>I'm going to sleep now.</button>
+  </div>
+
+  <div class="flow-buttons" id="grunt-mode-buttons">
+    <button>I seem to be having some trouble helping you. </button>
+    <button>Would you like to record a message to tell us what is going wrong? Say 1 for yes, 2 for no.</button>
+    <button>No worries. I'm going to sleep now. Bye!</button>
+    <button>Please record your message after the beep. *BEEP*</button>
+    <button>Thanks for the feedback! Ready to send?</button>
+    <button>Thanks so much. I'm going to sleep now. </button>
+    <button>Aww. Ok. I'm going to sleep now.</button>
+    <button>Sorry?</button>
+    <button>Hmm, I don't know how to help with that. I'm going to sleep now.</button>
+  </div>
+
+  <script src="js/typer.js"></script>
+</body>
+
+</html>
